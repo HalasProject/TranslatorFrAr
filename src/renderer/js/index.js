@@ -10,7 +10,7 @@ window.onload = function () {
 document.addEventListener("DOMContentLoaded", () => {
   
   document.addEventListener('keydown', function(event) {
-    if (event.ctrlKey && event.key === 's') {
+    if (event.ctrlKey && (event.key === 's' || event.key === 'S')) {
       if(!isNaN(window.currentWord)){
         updateWord(event)
       } else {
@@ -299,3 +299,4 @@ ipcRenderer.on("new-word-added", (event, message) => {
 });
 
 fetchData();
+
