@@ -1,6 +1,16 @@
+
 body {
   background-color: #ffffff;
+  overflow-y: visible !important;
+  overflow-x: hidden !important;
 }
+.titlebar{
+  position: fixed !important;
+}
+#content{
+  padding-top: 20vh;
+}
+
 .ui.menu .item img.logo {
   margin-right: 1.5em;
 }
@@ -12,10 +22,10 @@ body {
 }
 .ui.footer.segment {
   margin: 5em 0em 0em;
-  padding: 5em 0em;
+  padding: 7em 0em;
 }
 #sidebar {
-  margin-top: 62px !important;
+  margin-top: 92px !important;
   padding-bottom: 100px !important;
 }
 #loading {

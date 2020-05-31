@@ -21,6 +21,18 @@
          <p></p>
          <p></p>
       </div>
+      <script>
+         const customTitlebar = require("custom-electron-titlebar");
+   
+         var titlebar = new customTitlebar.Titlebar({
+           backgroundColor: customTitlebar.Color.fromHex("#1dab3e"),
+           itemBackgroundColor:customTitlebar.Color.fromHex("#666"),
+           shadow:true,
+           
+         })
+
+         titlebar.updateTitle('Nouveau');
+       </script>
       <div class="ui container basic segment" style="margin-top: 8%;margin-bottom:8%">
          <h2 class="ui icon header center aligned">
             <i class="edit outline icon"></i>

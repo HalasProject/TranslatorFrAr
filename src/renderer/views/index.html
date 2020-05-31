@@ -7,10 +7,9 @@
     <meta name="keywords" content="Dictionaire, art" />
     <meta name="author" content="Salah Eddine Bentayeb" />
     <title>Dictionaire de l'art</title>
-    <link rel="stylesheet" href="../library/semantic/semantic.min.css">
-    <link rel="stylesheet" href="../style/app.css">
+    <link rel="stylesheet" href="../library/semantic/semantic.min.css" />
+    <link rel="stylesheet" href="../style/app.css" />
   </head>
-  <style></style>
   <body>
     <div id="loading" class="ui segment">
       <div class="ui active dimmer">
@@ -20,6 +19,15 @@
       <p></p>
       <p></p>
     </div>
+    <script>
+      const customTitlebar = require("custom-electron-titlebar");
+
+      var titlebar = new customTitlebar.Titlebar({
+        backgroundColor: customTitlebar.Color.fromHex("#1dab3e"),
+        itemBackgroundColor:customTitlebar.Color.fromHex("#666"),
+        shadow:true
+      })
+    </script>
     <div id="float-options">
       <a href="#" class="float" id="menu-share">
         <i class="ui icon cog my-float"></i>
@@ -37,10 +45,10 @@
         </li>
       </ul>
     </div>
-    
+
     <!-- Menu Top -->
     <div class="ui top fixed menu">
-      <div class="ui fixed inverted menu">
+      <div class="ui fixed inverted menu" style="margin-top: 30px">
         <div class="ui item">
           <div class="ui icon input">
             <input type="text" id="searching" placeholder="Search..." />
@@ -87,14 +95,14 @@
       <p></p>
     </div>
     <!-- Content -->
-    <div id="content" class="dimmed pusher" style="padding-top: 8%;">
+    <div id="content" class="dimmed pusher">
       <div class="ui main fixed">
         <!-- Presentation du dictionaire -->
         <div id="presentation" class="ui text container">
           <h2 class="ui center aligned icon header">
             <i class="circular book icon"></i>
             Dictionaire de l'art
-            <br>
+            <br />
             <div class="ui statistic">
               <div class="value">
                 <b id="size"></b>

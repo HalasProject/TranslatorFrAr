@@ -8,17 +8,48 @@ window.onload = function () {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
+  
+  document.addEventListener('keydown', function(event) {
+    if (event.ctrlKey && event.key === 's') {
+      if(!isNaN(window.currentWord)){
+        updateWord(event)
+      } else {
 
-  window.currentWord = null;
+        console.log('je fait rien jai aucun doc')
+      }
+    }
+  });
+
+  window.doc = new Proxy(
+    {},
+    {
+      set: function (obj, prop, valeur) {
+        if (prop == "currentWord") {
+          if (isNaN(valeur) || valeur == undefined) {
+            window.currentWord = undefined
+            document.getElementById("float-options").style.display = "none";
+          } else if (typeof valeur == "number") {
+            window.currentWord = valeur
+            document.getElementById("float-options").style.display = "block";
+          }
+        }
+      },
+     
+    }
+  );
+
+  window.doc.currentWord = undefined;
 
   //Load Ckeditor5
   loadEditor();
 
   //Get totale count of words
-  totale_words()
+  totale_words();
 
   //Save Word
-  document.getElementById("save").addEventListener("click", e =>{updateWord(e)} );
+  document.getElementById("save").addEventListener("click", (e) => {
+    updateWord(e);
+  });
   //Delete Word
   document.getElementById("delete").addEventListener("click", deleteWord);
 
@@ -64,8 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.getElementById("home").addEventListener("click", (e) => {
-    
-    window.currentWord = null;
+    window.doc.currentWord = undefined;
     let presentation = document.querySelector("#presentation");
     if (presentation.style.display == "none") {
       presentation.style.display = "block";
@@ -88,18 +118,19 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("close").addEventListener("click", (e) => {
     ipcRenderer.send("close-app");
   });
-
 });
 
-function totale_words(){
-  database.size().then((size)=>{
-    document.getElementById('size').textContent = size
-  })
+function totale_words() {
+  database.size().then((size) => {
+    document.getElementById("size").textContent = size;
+  });
 }
 
 function loadEditor() {
   const InlineEditor = require("@ckeditor/ckeditor5-build-inline");
-  InlineEditor.create(document.getElementById("description_francais"),{placeholder: 'Traduction'})
+  InlineEditor.create(document.getElementById("description_francais"), {
+    placeholder: "Traduction",
+  })
     .then((editor) => {
       window.description_francais = editor;
       description_francais.model.document.on("change:data", () => {
@@ -113,7 +144,7 @@ function loadEditor() {
 
   InlineEditor.create(document.getElementById("description_arabe"), {
     language: { ui: "en", content: "ar" },
-    placeholder: 'الترجمة'
+    placeholder: "الترجمة",
   })
     .then((editor) => {
       window.description_arabe = editor;
@@ -128,13 +159,13 @@ function loadEditor() {
 }
 
 function fetchData() {
-  database.size().then((size)=>{
-    if (size == 0){
-      if(document.getElementById("loader")){
+  database.size().then((size) => {
+    if (size == 0) {
+      if (document.getElementById("loader")) {
         document.getElementById("loader").style.display = "none";
       }
 
-      document.getElementById('sidebar').innerHTML = `
+      document.getElementById("sidebar").innerHTML = `
       <div
       class="ui active dimmer"
       id="No worlds"
@@ -142,7 +173,7 @@ function fetchData() {
     >
       <div class="ui text" style="color:white">Pas encore de mots</div>
     </div>
-    <p></p>`
+    <p></p>`;
     } else {
       database.getAll().then((data) => {
         let element = "";
@@ -153,21 +184,24 @@ function fetchData() {
           document.getElementById("loader").style.display = "none";
         }
         document.getElementById("sidebar").innerHTML = element;
-    
+
         document.querySelectorAll(".word").forEach((word) => {
           word.onclick = function (e) {
-            document.getElementById("presentation").style.display = "none";
-            document.getElementById("traduction").style.display = "block";
+            let elem = `<div class="ui active tiny inline loader " id="tinyloader" style="float: right;"></div>`;
+            console.log(elem);
+            e.target.innerHTML += elem;
             database.getOne(parseInt(e.target.dataset.id)).then((data) => {
               editWord(data);
+              document.getElementById("presentation").style.display = "none";
+              document.getElementById("traduction").style.display = "block";
+              e.target.removeChild(document.getElementById("tinyloader"));
+              $(".ui.sidebar").sidebar("toggle");
             });
-            $(".ui.sidebar").sidebar("toggle");
           };
         });
       });
     }
-  })
-  
+  });
 }
 
 function updateWord(e) {
@@ -181,7 +215,7 @@ function updateWord(e) {
   var currentWord = parseInt(window.currentWord);
   const Toast = Swal.mixin({
     toast: true,
-    position: "top",
+    position: "bottom",
     showConfirmButton: false,
     timer: 3000,
     timerProgressBar: true,
@@ -213,7 +247,7 @@ function editWord(data) {
   window.description_arabe.setData(data.ar_description);
   document.getElementById("mot_francais").textContent = data.fr_name;
   document.getElementById("mot_arabe").textContent = data.ar_name;
-  window.currentWord = data.id;
+  window.doc.currentWord = parseInt(data.id);
 }
 
 function deleteWord() {
@@ -238,8 +272,9 @@ function deleteWord() {
       })
       .then((result) => {
         if (result.value) {
+          window.doc.currentWord = undefined
           fetchData();
-          totale_words()
+          totale_words();
 
           document.getElementById("presentation").style.display = "block";
           document.getElementById("traduction").style.display = "none";
@@ -260,8 +295,7 @@ function deleteWord() {
 
 ipcRenderer.on("new-word-added", (event, message) => {
   fetchData();
-  totale_words()
-
+  totale_words();
 });
 
 fetchData();
