@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Dictionaire de l'art" />
+    <meta name="keywords" content="Dictionaire, art" />
+    <meta name="author" content="Salah Eddine Bentayeb" />
+    <title>Dictionaire de l'art</title>
+    <link rel="stylesheet" href="../library/semantic/semantic.min.css">
+    <link rel="stylesheet" href="../style/app.css">
+  </head>
+  <style></style>
+  <body>
+    <div id="loading" class="ui segment">
+      <div class="ui active dimmer">
+        <div class="ui massive text loader">Loading</div>
+      </div>
+      <p></p>
+      <p></p>
+      <p></p>
+    </div>
+    <div id="float-options">
+      <a href="#" class="float" id="menu-share">
+        <i class="ui icon cog my-float"></i>
+      </a>
+      <ul id="options">
+        <li>
+          <a id="save" href="#">
+            <i class="ui icon save my-float"></i>
+          </a>
+        </li>
+        <li>
+          <a id="delete" href="#">
+            <i class="ui icon trash my-float"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+    
+    <!-- Menu Top -->
+    <div class="ui top fixed menu">
+      <div class="ui fixed inverted menu">
+        <div class="ui item">
+          <div class="ui icon input">
+            <input type="text" id="searching" placeholder="Search..." />
+            <i class="search icon"></i>
+          </div>
+        </div>
+        <a href="#" id="togler" class="item">
+          <i class="ui icon caret square right"></i>
+        </a>
+        <a id="addWord" class="item">
+          <i class="ui icon caret plus square"></i>
+        </a>
+        <div class="ui item">
+          <div class="ui buttons">
+            <button class="ui button langue" data-langue="arabe">Arabe</button>
+            <div class="or" daFta-text="ou"></div>
+            <button class="ui button langue" data-langue="francais">
+              Francais
+            </button>
+          </div>
+        </div>
+        <div class="right menu">
+          <a href="#" id="home" class="header item">
+            Dictionaire de l'art
+          </a>
+          <a href="#" id="maximize" class="header item">
+            <i class="ui icon window maximize square"></i>
+          </a>
+          <a href="#" id="close" class="header item">
+            <i class="ui icon window close square"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- Sidebar -->
+    <div id="sidebar" class="ui sidebar fixed inverted vertical menu">
+      <div
+        class="ui active dimmer"
+        id="loader"
+        style="background-color: #00000000;"
+      >
+        <div class="ui text loader">Loading</div>
+      </div>
+      <p></p>
+    </div>
+    <!-- Content -->
+    <div id="content" class="dimmed pusher" style="padding-top: 8%;">
+      <div class="ui main fixed">
+        <!-- Presentation du dictionaire -->
+        <div id="presentation" class="ui text container">
+          <h2 class="ui center aligned icon header">
+            <i class="circular book icon"></i>
+            Dictionaire de l'art
+            <br>
+            <div class="ui statistic">
+              <div class="value">
+                <b id="size"></b>
+              </div>
+              <div class="label">
+                Mots
+              </div>
+            </div>
+          </h2>
+          <p>Livre par Dr.Nasr-Eddine Bentayeb</p>
+
+          <img
+            class="wireframe"
+            src="https://semantic-ui.com/examples/assets/images/wireframe/media-paragraph.png"
+          />
+          <img
+            class="wireframe"
+            src="https://semantic-ui.com/examples/assets/images/wireframe/paragraph.png"
+          />
+          <img
+            class="wireframe"
+            src="https://semantic-ui.com/examples/assets/images/wireframe/paragraph.png"
+          />
+          <img
+            class="wireframe"
+            src="https://semantic-ui.com/examples/assets/images/wireframe/paragraph.png"
+          />
+          <img
+            class="wireframe"
+            src="https://semantic-ui.com/examples/assets/images/wireframe/paragraph.png"
+          />
+          <img
+            class="wireframe"
+            src="https://semantic-ui.com/examples/assets/images/wireframe/paragraph.png"
+          />
+          <img
+            class="wireframe"
+            src="https://semantic-ui.com/examples/assets/images/wireframe/paragraph.png"
+          />
+        </div>
+        <!-- Fin de la presentation -->
+        <!---------------------------->
+        <!-- Traduction d'un mot -->
+        <div id="traduction" style="display: none;">
+          <!-- Mot & Description Francais -->
+          <div id="francais">
+            <div class="ui horizontal divider">
+              Francais
+            </div>
+            <div class="ui container">
+              <div>
+                <h1 id="mot_francais" class="ui header"></h1>
+                <div id="description_francais"></div>
+              </div>
+            </div>
+          </div>
+          <!-- Mot & Description Arbe -->
+          <div id="arabe">
+            <div class="ui horizontal divider">
+              Arabe
+            </div>
+            <div dir="rtl" class="ui container">
+              <h1 id="mot_arabe" class="ui header"></h1>
+              <div id="description_arabe"></div>
+            </div>
+          </div>
+        </div>
+        <!-- Fin de traduction -->
+      </div>
+      <!-- Footer -->
+      <div>
+        <div class="ui inverted vertical footer segment">
+          <div class="ui container">
+            <div
+              class="ui stackable inverted divided equal height stackable grid"
+            >
+              <div class="three wide column">
+                <h4 class="ui inverted header">About</h4>
+                <div class="ui inverted link list">
+                  <a href="#" class="item">Sitemap</a>
+                  <a href="#" class="item">Contact Us</a>
+                  <a href="#" class="item">Religious Ceremonies</a>
+                  <a href="#" class="item">Gazebo Plans</a>
+                </div>
+              </div>
+              <div class="three wide column">
+                <h4 class="ui inverted header">Services</h4>
+                <div class="ui inverted link list">
+                  <a href="#" class="item">Banana Pre-Order</a>
+                  <a href="#" class="item">DNA FAQ</a>
+                  <a href="#" class="item">How To Access</a>
+                  <a href="#" class="item">Favorite X-Men</a>
+                </div>
+              </div>
+              <div class="seven wide column">
+                <h4 class="ui inverted header">Footer Header</h4>
+                <p>
+                  Extra space for a call to action inside the footer that could
+                  help re-engage users.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      window.$ = window.jQuery = require("jquery");
+    </script>
+    <script src="../library/semantic/semantic.min.js"></script>
+    <script src="../js/index.js"></script>
+  </body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Ajouter un nouveau mot</title>
+      <link rel="stylesheet" href="../library/semantic/semantic.min.css">
+      <link rel="stylesheet" href="../style/app.css">
+   </head>
+   <style>
+      body{
+         background-color: rgba(231, 231, 231, 0.473);
+      }
+   </style>
+   <body>
+      <div id="loading" class="ui segment">
+         <div class="ui active dimmer">
+            <div class="ui massive text loader">Loading</div>
+         </div>
+         <p></p>
+         <p></p>
+         <p></p>
+      </div>
+      <div class="ui container basic segment" style="margin-top: 8%;margin-bottom:8%">
+         <h2 class="ui icon header center aligned">
+            <i class="edit outline icon"></i>
+            <div class="content">
+              Nouveau mot
+              <div class="sub header">Ajouter Une Nouvelle Traduction.</div>
+            </div>
+          </h2>
+         <div class="ui flop segment">
+            <form id="addword-form">
+               <div class="ui two column very relaxed stackable grid">
+                  <div class="column">
+                     <div class="ui form">
+                        <div class="field">
+                           <label>Mot</label>
+                           <input type="text" placeholder="Mot" name="" id="mot_fr" required>
+                        </div>
+                        <div class="field">
+                           <label>Description</label>
+                           <textarea id="description_francais"  placeholder="Traduction"></textarea>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="column">
+                     <div class="ui form">
+                        <div class="field">
+                           <label dir="rtl">الكلمة</label>
+                           <input dir="rtl" id="mot_ar" type="text" placeholder="الكلمة" required>
+                        </div>
+                        <div class="field">
+                           <label dir="rtl">التعريف</label>
+                           <textarea id="description_arabe" placeholder="ترجمة"></textarea>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="ui vertical divider">
+                  ET
+               </div>
+         </div>
+         <div class="ui right">
+         <button id="addbtn" class="ui teal labeled right floated icon button">Ajouter <i class="add icon"></i> </button>
+         </div>
+         </form>
+      </div>
+      <script> window.$ = window.jQuery = require('jquery'); </script>
+      <script src="../library/semantic/semantic.min.js"></script>
+      <script src="../js/addword.js"></script>
+   </body>
+</html>
