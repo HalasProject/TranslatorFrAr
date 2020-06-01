@@ -1,6 +1,7 @@
-const {app,ipcMain,Notification} = require("electron");
+const {app,ipcMain,Notification,globalShortcut } = require("electron");
 const { MainWindow, AddWindow,loadingWindow } = require("./window");
 require('dotenv').config()
+
 
 class Dictionaire{
   constructor() {
@@ -10,7 +11,6 @@ class Dictionaire{
   }
 
   init() {
-    
     app.whenReady().then(() => {
       this.loadingWindow = loadingWindow()
       this.createMainWindow();
