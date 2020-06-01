@@ -1,16 +1,18 @@
-const {app,ipcMain,webContents} = require("electron");
-const { MainWindow, AddWindow } = require("./window");
-
+const {app,ipcMain,Notification} = require("electron");
+const { MainWindow, AddWindow,loadingWindow } = require("./window");
+require('dotenv').config()
 
 class Dictionaire{
   constructor() {
     this.mainWindow = null;
     this.addWindow = null;
+    this.loadingWindow = null;
   }
 
   init() {
     
     app.whenReady().then(() => {
+      this.loadingWindow = loadingWindow()
       this.createMainWindow();
     });
 
@@ -21,6 +23,22 @@ class Dictionaire{
        this.mainWindow.fullScreen = true;
       }
     });
+
+    ipcMain.on('notification',(event,msg)=>{
+      var notif = new Notification({
+        icon:`${__dirname}/../assets/icon.png`,
+        title:process.env.APP_NAME,
+        body:`${msg.message}`
+      })
+      if (msg.type == 'word-added'){
+        notif.on('click',()=>{
+          console.log('type word-added')
+          this.mainWindow.webContents.send('show-word',msg.id)
+          this.mainWindow.focus()
+        })
+      }
+      notif.show()
+    })
 
     ipcMain.on("close-app", () => {
       app.quit();
@@ -39,6 +57,7 @@ class Dictionaire{
     this.mainWindow = MainWindow();
     this.mainWindow.webContents.on("did-finish-load", () => {
       this.mainWindow.show();
+      this.loadingWindow.destroy()
     });
   }
 

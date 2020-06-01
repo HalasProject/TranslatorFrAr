@@ -17,14 +17,12 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function loadEditor() {
+  const {config_ar,config_fr} = require('../js/ckeditor.js')
+
   let description_arabe = document.getElementById("description_arabe");
   let description_francais = document.getElementById("description_francais");
 
-  ClassicEditor.create(
-    description_arabe,
-    { language: { ui: "en", content: "ar" } },
-    { removePlugins: ["image"] }
-  )
+  ClassicEditor.create(description_arabe,config_ar)
     .then((editor) => {
       window.description_arabe_add = editor;
     })
@@ -32,7 +30,7 @@ function loadEditor() {
       console.log(e);
     });
 
-  ClassicEditor.create(description_francais)
+  ClassicEditor.create(description_francais,config_fr)
     .then((editor) => {
       window.description_francais_add = editor;
     })
@@ -61,8 +59,13 @@ function storeWord(e) {
   var database = new DBI();
   database
     .store(word)
-    .then((success) => {
-      ipcRenderer.send("word-added", success);
+    .then((id) => {
+      ipcRenderer.send("word-added", id);
+      ipcRenderer.send('notification',{
+        id:id,
+        type:'word-added',
+        message:'Votre mot a etait creé avec success'
+      })
       cleanData();
       Swal.fire({
         position: "center",

@@ -38,3 +38,26 @@ exports.AddWindow = function (parent) {
   window.loadFile(`${views_path}/adding.html`);
   return window;
 };
+
+exports.loadingWindow = function(){
+  let window = new BrowserWindow({
+    minWidth:500,
+    closable:false,
+    hasShadow:true,
+    fullscreenable:false,
+    autoHideMenuBar:true,
+    movable:false,
+    maximizable:false,
+    minimizable:false,
+    resizable:false,
+    minHeight:500,
+    width: 1000,
+    height: 700,
+    frame:false,
+    transparent:true,
+    show:true,
+    center: true,
+  });
+  window.loadFile(`${views_path}/loading.html`);
+  return window;
+}

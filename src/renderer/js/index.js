@@ -127,10 +127,10 @@ function totale_words() {
 }
 
 function loadEditor() {
+  const {config_ar,config_fr} = require('../js/ckeditor.js')
   const InlineEditor = require("@ckeditor/ckeditor5-build-inline");
-  InlineEditor.create(document.getElementById("description_francais"), {
-    placeholder: "Traduction",
-  })
+  
+  InlineEditor.create(document.getElementById("description_francais"),config_fr)
     .then((editor) => {
       window.description_francais = editor;
       description_francais.model.document.on("change:data", () => {
@@ -142,10 +142,7 @@ function loadEditor() {
       console.error(error);
     });
 
-  InlineEditor.create(document.getElementById("description_arabe"), {
-    language: { ui: "en", content: "ar" },
-    placeholder: "الترجمة",
-  })
+  InlineEditor.create(document.getElementById("description_arabe"),config_ar)
     .then((editor) => {
       window.description_arabe = editor;
       description_arabe.model.document.on("change:data", () => {
@@ -228,6 +225,10 @@ function updateWord(e) {
   database
     .update(currentWord, data)
     .then(() => {
+      ipcRenderer.send('notification',{
+        type:'word-update',
+        message:'Votre travaille a etait sauvegarder '
+      })
       Toast.fire({
         icon: "success",
         title: "Votre travaille a etait sauvegarder",
@@ -297,6 +298,11 @@ ipcRenderer.on("new-word-added", (event, message) => {
   fetchData();
   totale_words();
 });
+
+ipcRenderer.on('show-word',(event,id)=>{
+  $(`[data-id=${id}]`).click()
+  $(".ui.sidebar").sidebar("toggle");
+})
 
 fetchData();
 
