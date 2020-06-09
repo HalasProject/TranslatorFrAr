@@ -57,6 +57,8 @@ document.addEventListener("DOMContentLoaded", () => {
     $(".ui.sidebar").sidebar("toggle");
   });
 
+  document.getElementById('saveDatabase').addEventListener('click',saveDatabase);
+
   document.querySelectorAll(".langue").forEach((button) => {
     let langue = button.dataset.langue;
     if (window.localStorage.getItem(langue) == "true") {
@@ -292,6 +294,15 @@ function deleteWord() {
         }
       });
   });
+}
+
+function saveDatabase(){
+  const download = require("downloadjs");
+  database.exportDB().then((DB)=>{
+    download(DB, "dictionaire.json", "application/json");
+  }).catch((e)=>{
+    console.log(e)
+  })
 }
 
 ipcRenderer.on("new-word-added", (event, message) => {

@@ -23,7 +23,9 @@
     "@ckeditor/ckeditor5-build-inline": "^19.0.1",
     "custom-electron-titlebar": "^3.2.2-hotfix62",
     "dexie": "^3.0.1",
+    "dexie-export-import": "^1.0.0-rc.2",
     "dotenv": "^8.2.0",
+    "downloadjs": "^1.4.7",
     "jquery": "^3.5.1",
     "sweetalert2": "^9.13.4"
   }

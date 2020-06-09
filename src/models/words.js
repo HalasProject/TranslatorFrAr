@@ -1,24 +1,20 @@
-require('dotenv').config()
 const Dexie = require("dexie");
+const { exportDB } = require("dexie-export-import");
 
 class DBI {
-  
   constructor() {
-    this.db = new Dexie(process.env.DB_NAME)
-    this.db.version(process.env.DB_VERSION).stores({
+    this.db = new Dexie("dictionaire");
+    this.db.version(1).stores({
       words: "++id,ar_name,ar_description,fr_name,fr_description",
     });
-
   }
 
-  async size(){
-    return await this.db.words.count()
+  async size() {
+    return await this.db.words.count();
   }
-  
+
   async store(word) {
-    return await this.db.words.add(word).catch(function (error) {
-      console.log(error);
-    });
+    return await this.db.words.add(word);
   }
 
   async getOne(id) {
@@ -30,11 +26,22 @@ class DBI {
   }
 
   async update(id, data) {
+    this.savefile();
     return await this.db.words.update(id, data);
   }
 
   async delete(id) {
     return await this.db.words.delete(id);
+  }
+
+  async exportDB() {
+    try {
+      return await this.db.export({
+        prettyJson: true,
+      });
+    } catch (error) {
+      return error;
+    }
   }
 }
 

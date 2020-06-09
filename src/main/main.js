@@ -1,6 +1,5 @@
 const {app,ipcMain,Notification,globalShortcut } = require("electron");
 const { MainWindow, AddWindow,loadingWindow } = require("./window");
-require('dotenv').config()
 
 
 class Dictionaire{
@@ -27,7 +26,7 @@ class Dictionaire{
     ipcMain.on('notification',(event,msg)=>{
       var notif = new Notification({
         icon:`${__dirname}/../assets/icon.png`,
-        title:process.env.APP_NAME,
+        title:app.getName(),
         body:`${msg.message}`
       })
       if (msg.type == 'word-added'){
