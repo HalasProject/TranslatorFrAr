@@ -37,7 +37,7 @@ class DBI {
   async exportDB() {
     try {
       return await this.db.export({
-        prettyJson: true,
+        prettyJson: true
       });
     } catch (error) {
       return error;
